@@ -17,65 +17,6 @@
 - [08. Register to OpenAI](#-8---register-to-openai)
 - [09. Setup Project](#-9---setup-project)
 
-----
-## HouseKeeping
-
-### Objectives
-
-* Introduce AstraDB and Vector Search capability
-* Provide you a working Generative AI demo
-
-### Frequently asked questions
-
-<p/>
-<details>
-<summary><b> 1️⃣ Can I run this workshop on my computer?</b></summary>
-<hr>
-<p>There is nothing preventing you from running the workshop on your own machine, If you do so, you will need the following
-<ol>
-<li><b>git</b> installed on your local system
-<li><b>Java</b> installed on your local system
-<li><b>Maven</b> installed on your local system
-</ol>
-</p>
-In this readme, we try to provide instructions for local development as well - but keep in mind that the main focus is development on Gitpod, hence <strong>We can't guarantee live support</strong> about local development in order to keep on track with the schedule. However, we will do our best to give you the info you need to succeed.
-</details>
-<p/>
-<details>
-<summary><b> 2️⃣ What other prerequisites are required?</b></summary>
-<hr>
-<ul>
-<li>You will need an enough *real estate* on screen, we will ask you to open a few windows and it does not file mobiles (tablets should be OK)
-<li>You will need a GitHub account eventually a google account for the Google Authentication (optional)
-<li>You will need an Astra account: don't worry, we'll work through that in the following
-<li>As Intermediate level we expect you to know what java and maven are
-</ul>
-</p>
-</details>
-<p/>
-<details>
-<summary><b> 3️⃣ Do I need to pay for anything for this workshop?</b></summary>
-<hr>
-<b>No.</b> All tools and services we provide here are FREE. FREE not only during the session but also after.
-</details>
-<p/>
-<details>
-<summary><b> 4️⃣ Will I get a certificate if I attend this workshop?</b></summary>
-<hr>
-Attending the session is not enough. You need to complete the homeworks detailed below and you will get a nice badge that you can share on linkedin or anywhere else *(open api badge)*
-</details>
-<p/>
-
-### Materials for the Session
-
-It doesn't matter if you join our workshop live or you prefer to work at your own pace,
-we have you covered. In this repository, you'll find everything you need for this workshop:
-
-- [Slide deck](/slides/slides.pdf)
-- [Discord chat](https://dtsx.io/discord)
-
-----
-
 ## LAB
 
 #### ✅ `1` - Create your DataStax Astra account
@@ -225,7 +166,7 @@ astra db describe demo-genai
 - Create `.env` file with variables
 
 ```bash
-astra db create-dotenv genai 
+astra db create-dotenv demo-genai 
 ```
 
 - Display the file
@@ -260,7 +201,8 @@ EXPORT OPENAI_API_KEY=<key>
 
 #### ✅ `9` - Setup project
 
-This command will allows to validate that Java , maven and lombok are working as expected
+This command will allows to validate that Java ,
+maven and lombok are working as expected and you can connect.
 
 > Note:
 > To create the project i simply when with the astra sdk arachetype as follow
@@ -270,18 +212,52 @@ This command will allows to validate that Java , maven and lombok are working as
 > -DarchetypeArtifactId=spring-boot-3x-archetype \
 > -DarchetypeVersion=0.6.9 \
 > -DinteractiveMode=false \
-> -DgroupId=fr.clunven \
+> -DgroupId=com.datastax.demo \
 > -DartifactId=genai-demo \
 > -Dversion=1.0-SNAPSHOT
 > ```
 > and added the vector dependency:
 > ```xml
 > <dependency>
->  <groupId>com.datastax.astra</groupId>
+>   <groupId>com.datastax.astra</groupId>
+>   <artifactId>astra-sdk-vector</artifactId>
+>   <version>${astra-sdk-starter.version}</version>
+> </dependency>
 > ```
 
+- Run connection test:
+
 ```
-mvn clean compile
+mvn test -Dtest=ConnectionTest#shouldBeConnectedTest
 ```
+
+- Run OpenAI Test:
+
+```
+mvn test -Dtest=OpenAiTest#shouldTestOpenAICreateEmbeddings
+```
+
+#### ✅ `10` - Vector Search
+
+- Look at Data
+
+```
+gp open
+```
+
+- Ingest data
+
+```
+mvn test -Dtest=GenerativeAITest#shouldIngestDocuments
+```
+
+#### ✅ `11` - RAG for Retrieve Augmented Generation
+
+
+
+
+
+
+
 
 

@@ -28,3 +28,10 @@ astra:
       basic:
         session-keyspace: ${ASTRA_DB_KEYSPACE}
 
+generative-ai:
+  table-name: philosophers
+  llm-model:
+    dimension: 1536
+    embeddings: text-embedding-ada-002
+    chat-completion: gpt-3.5-turbo
+

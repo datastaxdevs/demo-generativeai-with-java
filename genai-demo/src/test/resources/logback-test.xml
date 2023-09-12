@@ -9,6 +9,10 @@
     <logger name="com.dtsx.astra.sdk" level="INFO" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
+
+    <logger name="com.datastax.demo" level="INFO" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
     
     <logger name="org.springframework" level="ERROR" additivity="false">
         <appender-ref ref="STDOUT" />
