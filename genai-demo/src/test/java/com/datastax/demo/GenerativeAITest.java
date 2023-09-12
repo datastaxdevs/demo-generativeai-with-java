@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.theokanning.openai.completion.chat.ChatCompletionChoice;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.theokanning.openai.completion.chat.ChatMessage;
-import com.theokanning.openai.embedding.Embedding;
 import com.theokanning.openai.embedding.EmbeddingRequest;
 import com.theokanning.openai.service.OpenAiService;
 import org.junit.jupiter.api.Test;
@@ -22,7 +21,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -98,25 +96,25 @@ public class GenerativeAITest {
     }
 
     @Test
-    public void shouldSearchQuotesWithMetadataFiltering1() {
+    public void shouldSimilaritySearchQuotesFilteredByAuthor() {
         List<String> quotes2 =  findQuotesWithAuthor(vectorTable, "We struggle all our life for nothing", 2, "nietzsche");
         logQuotes(quotes2);
     }
 
     @Test
-    public void shouldSearchQuotesWithMetadataFiltering2() {
+    public void shouldSimilaritySearchQuotesFilteredByTags() {
         List<String> quotes3 =  findQuotesWithATags(vectorTable, "We struggle all our life for nothing", 2, "politics");
         logQuotes(quotes3);
     }
 
     @Test
-    public void shouldSearchQuotesWithThreshold() {
+    public void shouldSimilaritySearchQuotesWithThreshold() {
         List<String> quotes4 = findQuotesWithThreshold(vectorTable, "Animals are our equals", 8, 0.8);
         logQuotes(quotes4);
     }
 
     @Test
-    public void shouldGenerateQuotes() {
+    public void shouldGenerateQuotesWithRag() {
         List<String> generatedQuotes = generateQuotes(vectorTable, "politics and virtue", 4, "nietzsche");
         logQuotes(generatedQuotes);
     }

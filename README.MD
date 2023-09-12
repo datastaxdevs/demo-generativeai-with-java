@@ -19,6 +19,8 @@
 
 ## LAB
 
+![](./img/01-set-the-scene.png)
+
 #### ✅ `1` - Create your DataStax Astra account
 
 > ℹ️ Account creation tutorial is available in [awesome astra](https://awesome-astra.github.io/docs/pages/astra/create-account/)
@@ -233,6 +235,8 @@ mvn test -Dtest=ConnectionTest#shouldBeConnectedTest
 
 - Run OpenAI Test:
 
+![](./img/02-compute-embeddings.png)
+
 ```
 mvn test -Dtest=OpenAiTest#shouldTestOpenAICreateEmbeddings
 ```
@@ -251,9 +255,44 @@ gp open
 mvn test -Dtest=GenerativeAITest#shouldIngestDocuments
 ```
 
+- Open a cqlsh (in a new terminal)
+
+```
+astra db cqlsh genai-demo -k genai
+select row_id, metadata_s, blob_text, vector from philosophers
+```
+
+- Similarity Search
+
+```
+mvn test -Dtest=GenerativeAITest#shouldSimilaritySearchQuotes
+```
+
+- Similarity Search + MetaData (by Author)
+
+```
+mvn test -Dtest=GenerativeAITest#shouldSimilaritySearchQuotesFilteredByAuthor
+```
+
+- Similarity Search + MetaData (by Tags)
+
+```
+mvn test -Dtest=GenerativeAITest#shouldSimilaritySearchQuotesFilteredByTags
+```
+
+- Similarity Search with a threshold
+
+```
+mvn test -Dtest=GenerativeAITest#shouldSimilaritySearchQuotesWithThreshold
+```
+
 #### ✅ `11` - RAG for Retrieve Augmented Generation
 
+The Full Monty.....
 
+```
+mvn test -Dtest=GenerativeAITest#shouldGenerateQuotesWithRag
+```
 
 
 
