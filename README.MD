@@ -16,6 +16,8 @@
 - [07. Setup env variables](#-7---setup-env-variables)
 - [08. Register to OpenAI](#-8---register-to-openai)
 - [09. Setup Project](#-9---setup-project)
+- [10. Vector Search](#-10---vector-search)
+- [11. Retrieve Augmented Generation](#-11---rag-for-retrieve-augmented-generation)
 
 ## LAB
 
@@ -243,13 +245,9 @@ mvn test -Dtest=OpenAiTest#shouldTestOpenAICreateEmbeddings
 
 #### ✅ `10` - Vector Search
 
-- Look at Data
-
-```
-gp open
-```
-
 - Ingest data
+
+![](./img/03-ingests-data.png)
 
 ```
 mvn test -Dtest=GenerativeAITest#shouldIngestDocuments
