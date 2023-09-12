@@ -7,20 +7,14 @@
 
 ## 📋 Table of content
 
-[**HouseKeeping**](#housekeeping)
-- [Objectives](#objectives)
-- [Frequently asked questions](#frequently-asked-questions)
-- [Materials for the Session](#materials-for-the-session)
-
-[**LAB**](#1-database-initialization)
 - [01. Create Astra Account](#-1---create-your-datastax-astra-account)
 - [02. Create Astra Token](#-2---create-an-astra-token)
 - [03. Copy the token](#-3---copy-the-token-value-in-your-clipboard)
 - [04. Open Gitpod](#-4---open-gitpod)
 - [05. Setup CLI](#-5---set-up-the-cli-with-your-token)
 - [06. Create Database](#-6---create-destination-database-and-a-keyspace)
-- [07. Create Destination Table](#-7---create-destination-table)
-- [08. Setup env variables](#-8---setup-env-variables)
+- [07. Setup env variables](#-7---setup-env-variables)
+- [08. Register to OpenAI](#-8---register-to-openai)
 - [09. Setup Project](#-9---setup-project)
 
 ----
@@ -224,4 +218,70 @@ astra db describe demo-genai
 > |                  |                                         |
 > +------------------+-----------------------------------------+
 > ```
- 
+
+
+#### ✅ `7` - Setup env variables
+
+- Create `.env` file with variables
+
+```bash
+astra db create-dotenv genai 
+```
+
+- Display the file
+
+```bash
+cat .env
+```
+
+- Load env variables
+
+```
+set -a
+source .env
+set +a
+env | grep ASTRA
+```
+
+#### ✅ `8` - Register to OpenAI
+
+- Access to [OpenAI platform](https://platform.openai.com/) and register.
+
+![](./img/openai-home.png)
+
+- In your profile, go to `View API KEYS`, create a new key and copy the value in your clipboard. 
+You have a free trial for a month of so.
+
+![](./img/openai-key.png)
+
+```java
+EXPORT OPENAI_API_KEY=<key>
+```
+
+#### ✅ `9` - Setup project
+
+This command will allows to validate that Java , maven and lombok are working as expected
+
+> Note:
+> To create the project i simply when with the astra sdk arachetype as follow
+> ```
+> mvn archetype:generate \
+> -DarchetypeGroupId=com.datastax.astra \
+> -DarchetypeArtifactId=spring-boot-3x-archetype \
+> -DarchetypeVersion=0.6.9 \
+> -DinteractiveMode=false \
+> -DgroupId=fr.clunven \
+> -DartifactId=genai-demo \
+> -Dversion=1.0-SNAPSHOT
+> ```
+> and added the vector dependency:
+> ```xml
+> <dependency>
+>  <groupId>com.datastax.astra</groupId>
+> ```
+
+```
+mvn clean compile
+```
+
+
