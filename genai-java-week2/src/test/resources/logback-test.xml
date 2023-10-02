@@ -13,6 +13,10 @@
     <logger name="com.datastax.demo" level="INFO" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
+
+    <logger name="com.datastax.oss" level="ERROR" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
     
     <logger name="org.springframework" level="ERROR" additivity="false">
         <appender-ref ref="STDOUT" />

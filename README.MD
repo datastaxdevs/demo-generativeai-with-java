@@ -7,6 +7,7 @@
 
 ## 📋 Table of content
 
+### Week 1 
 - [01. Create Astra Account](#-1---create-your-datastax-astra-account)
 - [02. Create Astra Token](#-2---create-an-astra-token)
 - [03. Copy the token](#-3---copy-the-token-value-in-your-clipboard)
@@ -19,7 +20,14 @@
 - [10. Vector Search](#-10---vector-search)
 - [11. Retrieve Augmented Generation](#-11---rag-for-retrieve-augmented-generation)
 
-## LAB
+### Week 2
+
+- [Slides](./genai-with-java.pdf)
+- [12. Setup project](#-12---setup-project)
+- [13. Ingest document](#-13---ingest-document)
+- [14. Chap Completion](#-14---chat-completion)
+
+## WEEK1
 
 ![](./img/01-set-the-scene.png)
 
@@ -292,9 +300,75 @@ The Full Monty.....
 mvn test -Dtest=GenerativeAITest#shouldGenerateQuotesWithRag
 ```
 
+## WEEK 2
+
+#### ✅ `12` - Setup Project
+
+- Check list of running db
+
+```console
+astra db list
+```
+
+- Resume Db if needed (or create a new once)
+
+```json
+astra db resume langchain4j
+astra db create langchain4j --if-not-exists
+```
+
+- Make sure you setup the env variables (`$ASTRA_APPLICATION_TOKEN`)
+
+```bash
+astra db create-dotenv langchain4j
+set -a
+source .env
+set +a
+env | grep ASTRA
+```
+
+Go the `application.yaml` and check values are correct for your
 
 
+```yaml
+astra:
+  database:
+    name: langchain4j
+    keyspace: langchain4j
+    table: langchain4j
+```
+
+#### ✅ `13` - Ingest Document
 
 
+```java
+@Test
+@DisplayName("02. Should Ingest a document")
+@EnabledIfEnvironmentVariable(named = "ASTRA_DB_APPLICATION_TOKEN", matches = "Astra.*")
+@EnabledIfEnvironmentVariable(named = "OPENAI_API_KEY", matches = "sk.*")
+void should_Ingest_Document() {
 
+  Document document = FileSystemDocumentLoader.loadDocument(path, DocumentType.TXT);
+  DocumentSplitter splitter = DocumentSplitters
+        .recursive(100, 10,
+        new OpenAiTokenizer(GPT_3_5_TURBO));
+  
+  EmbeddingStoreIngestor.builder()
+     .documentSplitter(splitter)
+     .embeddingModel(embeddingModel)
+     .embeddingStore(embeddingStore)
+     .build().ingest(document);
+}
+```
 
+#### ✅ `14` - Chat Completion
+
+```java
+  @Test
+@DisplayName("03. Should Chat Completion")
+@EnabledIfEnvironmentVariable(named = "ASTRA_DB_APPLICATION_TOKEN", matches = "Astra.*")
+@EnabledIfEnvironmentVariable(named = "OPENAI_API_KEY", matches = "sk.*")
+void should_chat_completion(){
+        .. //check code in the class
+}
+```
