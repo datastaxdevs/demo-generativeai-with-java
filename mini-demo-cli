@@ -1,0 +1,36 @@
+### Demo Charter 10
+
+### Multi Environment Support
+
+- List DB  in prodi
+
+```
+astra db list
+```
+
+- List configurations
+
+```console
+astra config list
+```
+
+- Execute a particular command enforcing a config
+
+``console
+astra db list --config dev
+```
+
+- Select a configuration
+
+```
+astra db config use dev
+```
+
+
+astra db create test
+
+astra db list-regions-vector
+
+
+# Support for dev
+
